@@ -13,12 +13,17 @@
 JNIEXPORT jstring JNICALL
 Java_tw_kuoe0_androidjnitest_JNIMethod_getStringFromNativeForStaticFunction(JNIEnv *env, jclass cls)
 {
-	return env->NewStringUTF("Hello world from static!");
+	jfieldID fid = env->GetStaticFieldID(cls, "sMsg", "Ljava/lang/String;");
+	jstring str = (jstring) env->GetStaticObjectField(cls, fid);
+	return str;
 }
 
  // getStringFromNativeForMemberFunction
 JNIEXPORT jstring JNICALL
 Java_tw_kuoe0_androidjnitest_JNIMethod_getStringFromNativeForMemberFunction(JNIEnv *env, jobject obj)
 {
-	return env->NewStringUTF("Hello world from member!");
+	jclass cls = env->FindClass("tw/kuoe0/androidjnitest/JNIMethod");
+	jfieldID fid = env->GetFieldID(cls, "mMsg", "Ljava/lang/String;");
+	jstring str = (jstring) env->GetObjectField(obj, fid);
+	return str;
 }
