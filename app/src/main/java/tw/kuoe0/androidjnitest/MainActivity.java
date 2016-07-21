@@ -7,12 +7,11 @@ import android.widget.TextView;
 
 
 class JNIMethod {
-    static public String getStringFromNativeForStaticFunction() {
-        return sMsg;
+    static {
+        System.loadLibrary("JNIMethod");  //defaultConfig.ndk.moduleName
     }
-    public String getStringFromNativeForMemberFunction() {
-        return mMsg;
-    }
+    native static public String getStringFromNativeForStaticFunction();
+    native public String getStringFromNativeForMemberFunction();
 
     private static final String sMsg = "Hello wrold from static!";
     private final String mMsg = "Hello wrold from member!";
